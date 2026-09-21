@@ -14,6 +14,7 @@ from scoring_helpers import apply_streak_bonus
 
 def session_rating(combined_score: int) -> str:
     """Rate a study session from its combined minutes+focus score. Correct and tested."""
+    # Callers must pass an int 0-100; the min(boosted, 100) cap in apply_streak_bonus() is what guarantees it.
     if combined_score >= 90:
         return "Great"
     if combined_score >= 80:
