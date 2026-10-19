@@ -68,16 +68,17 @@ def rank_study_spots(profile: dict, spots: list, k: int = 3) -> list:
     Score every study spot, then return the top k as (spot, score, reasons)
     tuples, sorted by score descending.
     """
-    # TODO: score every spot with score_study_spot(), then use
-    # sorted(..., key=..., reverse=True)[:k] to keep only the top k.
-    raise NotImplementedError
+    scored = []
+    for spot in spots:
+        score, reasons = score_study_spot(profile, spot)
+        scored.append((spot, score, reasons))
+    return sorted(scored, key=lambda item: item[1], reverse=True)[:k]
 
 
 def format_results(ranked: list) -> None:
     """Print each ranked study spot with its score and reasons, one line each."""
-    # TODO: for each (spot, score, reasons) tuple, print a readable line, e.g.:
-    # "1. Innovation Commons -- Score: 5.0 -- Because: quiet enough, close enough"
-    raise NotImplementedError
+    for rank, (spot, score, reasons) in enumerate(ranked, start=1):
+        print(f"{rank}. {spot['name']} -- Score: {score:.1f} -- Because: {', '.join(reasons)}")
 
 
 def render_study_spot_tab():
